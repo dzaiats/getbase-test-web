@@ -5,48 +5,30 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class WebDriverFactory {
 
-    public static final String CHROME = "chrome";
-    public static final String FIREFOX = "firefox";
-    public static final String SAFARI = "firefox";
-    public static final String INTERNET_EXPLORER = "ie";
-    public static final String MOBILE = "true";
-    public static WebDriver driver;
-    public static boolean IS_MOBILE;
+    protected static final String CHROME = "chrome";
+    protected static final String FIREFOX = "firefox";
+    protected static final String SAFARI = "safari";
+    protected static WebDriver driver;
+    protected static String browserName;
 
-    public static WebDriver initDriver(String browser, String mobile, String mobileDeviceName) throws Exception {
+    public static WebDriver initDriver(String browser) throws Exception {
+        browserName = browser;
         if (CHROME.equals(browser)) {
             setChromeDriver();
-            if (MOBILE.equals(mobile)) {
-                IS_MOBILE = true;
-                Map<String, String> mobileEmulation = new HashMap<>();
-                mobileEmulation.put("deviceName", mobileDeviceName);
-
-                Map<String, Object> chromeOptions = new HashMap<>();
-                chromeOptions.put("mobileEmulation", mobileEmulation);
-                DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-                capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-                driver = new ChromeDriver(capabilities);
-            } else {
-                driver = new ChromeDriver();
-            }
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--start-maximized");
+            driver = new ChromeDriver(options);
         } else if (FIREFOX.equals(browser)) {
-            FirefoxProfile ffProfile = new FirefoxProfile();
-            driver = new FirefoxDriver(ffProfile);
-        } else if (INTERNET_EXPLORER.equals(browser)) {
+            driver = new FirefoxDriver();
+        } else if (SAFARI.equals(browser)) {
             driver = new SafariDriver();
-        } else {
-            driver = new HtmlUnitDriver();
         }
 
         driver.manage().window().maximize();
@@ -58,9 +40,9 @@ public class WebDriverFactory {
 
     private static void setChromeDriver() {
         Platform platform = Platform.getCurrent();
-        String os = System.getProperty("os.name").toLowerCase().substring(0, 3);
         String chromeBinary = "src/main/resources/drivers/chrome/chromedriver"
                 + (Platform.WINDOWS.is(platform) ? ".exe" : "");
         System.setProperty("webdriver.chrome.driver", chromeBinary);
     }
+
 }

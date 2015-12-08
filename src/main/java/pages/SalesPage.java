@@ -1,7 +1,10 @@
 package pages;
 
-/**
- * Created by ZayCo on 08/12/15.
- */
-public class SalesPage {
+import org.openqa.selenium.WebDriver;
+
+public class SalesPage extends BasePage {
+
+    public SalesPage(WebDriver driver) {
+        super(driver);
+    }
 }
