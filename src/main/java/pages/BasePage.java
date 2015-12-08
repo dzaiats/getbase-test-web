@@ -9,14 +9,14 @@ import org.openqa.selenium.support.PageFactory;
 
 public class BasePage extends WebDriverFactory {
 
-    @FindBy(id="nav-leads")
+    @FindBy(id = "nav-leads")
     protected WebElement leadNavBarItem;
 
-    public BasePage(WebDriver driver){
+    public BasePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
-    public void clickOnLeadNavBarItem(){
+    public void clickOnLeadNavBarItem() {
         leadNavBarItem.click();
     }
 }

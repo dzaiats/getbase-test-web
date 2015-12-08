@@ -6,8 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.PropertyLoader;
 
-import static java.lang.Thread.sleep;
-
 public class NewEditLeadPage extends BasePage {
 
     @FindBy(id = "lead-first-name")

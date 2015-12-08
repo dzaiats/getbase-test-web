@@ -6,14 +6,14 @@ import org.openqa.selenium.support.FindBy;
 
 public class LeadsPage extends BasePage {
 
-    @FindBy(id="leads-new")
+    @FindBy(id = "leads-new")
     private WebElement addNewLeadButton;
 
-    public LeadsPage(WebDriver driver){
+    public LeadsPage(WebDriver driver) {
         super(driver);
     }
 
-    public void clickAddNewLeadButton(){
+    public void clickAddNewLeadButton() {
         addNewLeadButton.click();
     }
 }

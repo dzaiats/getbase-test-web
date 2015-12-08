@@ -17,7 +17,7 @@ public class ProfileSettingsPage extends BasePage {
     @FindBy(xpath = "//*[@id='lead-status' and contains(@class,'active')]//fieldset[//h4[text()='Edit Lead Status']]//button")
     private WebElement saveButton;
 
-    @FindBy(css=".alert-success")
+    @FindBy(css = ".alert-success")
     private WebElement alertStatusChanged;
 
     public ProfileSettingsPage(WebDriver driver) {
