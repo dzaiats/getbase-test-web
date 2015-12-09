@@ -38,8 +38,8 @@ public class CreateNewLeadAndUpdateStatusTest extends BaseTestRunner {
         assertThat(actualStatus).isEqualTo(status);
     }
 
-    @When("user changed status to $newStatus")
-    public void whenUserChangedStatusToNewStatus(String newStatus) {
+    @When("user changed status from $oldStatus to $newStatus")
+    public void whenUserChangedStatusToNewStatus(String oldStatus, String newStatus) {
         lastCreatedLeadUrl = driver.getCurrentUrl();
 
         driver.get(baseUrl + settingsUrl);
@@ -47,8 +47,8 @@ public class CreateNewLeadAndUpdateStatusTest extends BaseTestRunner {
         new ProfileSettingsPage(driver)
                 .clickOnLeftSideNavigationPanelLink("Leads")
                 .clickOnLeadStatusesTab()
-                .clickEditButtonByStatus("New")
-                .changeStatusToNewAndSave("Created");
+                .clickEditButtonByStatus(oldStatus)
+                .changeStatusToNewAndSave(newStatus);
     }
 
     @Then("status is updated on lead page to $newStatus")
@@ -65,13 +65,13 @@ public class CreateNewLeadAndUpdateStatusTest extends BaseTestRunner {
         new NewEditLeadPage(driver).clickDeleteThisLead();
     }
 
-    @Then("status name should be reverted to previous one")
-    public void thenStatusNameShouldBeRevertedToPreviousOne() {
+    @Then("status name should be reverted from $oldStatus to $newStatus")
+    public void thenStatusNameShouldBeRevertedToPreviousOne(String oldStatus, String newStatus) {
         driver.get(baseUrl + settingsUrl);
         new ProfileSettingsPage(driver)
                 .clickOnLeftSideNavigationPanelLink("Leads")
                 .clickOnLeadStatusesTab()
-                .clickEditButtonByStatus("Created")
-                .changeStatusToNewAndSave("New");
+                .clickEditButtonByStatus(oldStatus)
+                .changeStatusToNewAndSave(newStatus);
     }
 }

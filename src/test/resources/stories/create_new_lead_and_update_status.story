@@ -9,7 +9,7 @@ Scenario: scenario of user creation
 Given user logged in to the system
 When user added a new lead
 Then new lead is created with status New
-When user changed status to Created
+When user changed status from New to Created
 Then status is updated on lead page to Created
 And user needs to be deleted
-And status name should be reverted to previous one
+And status name should be reverted from Created to New
