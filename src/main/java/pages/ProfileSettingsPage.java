@@ -29,21 +29,25 @@ public class ProfileSettingsPage extends BasePage {
         return driver.findElement(By.xpath("//*[@id='sidebar']//a[text()='" + linkName + "']"));
     }
 
-    public void clickOnLeftSideNavigationPanelLink(String linkName) {
+    public ProfileSettingsPage clickOnLeftSideNavigationPanelLink(String linkName) {
         getLinkFromLeftSideNavigationPanel(linkName).click();
+        return this;
     }
 
-    public void clickOnLeadStatusesTab() {
+    public ProfileSettingsPage clickOnLeadStatusesTab() {
         leadStatusesTab.click();
+        return this;
     }
 
-    public void clickEditButtonByStatus(String status) {
+    public ProfileSettingsPage clickEditButtonByStatus(String status) {
         driver.findElement(By.xpath("//div[./label/h4[text()='" + status + "']]//button[text()='Edit']")).click();
+        return this;
     }
 
-    public void changeStatusToNewAndSave(String newStatus) {
+    public ProfileSettingsPage changeStatusToNewAndSave(String newStatus) {
         DriverHelper.sendKeys(statusNameField, newStatus);
         saveButton.click();
         alertStatusChanged.isDisplayed();
+        return this;
     }
 }
