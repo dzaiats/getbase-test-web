@@ -10,6 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateNewLeadAndUpdateStatusTest extends BaseTestRunner {
 
+    public static final String LEADS = "Leads";
     private String lastCreatedLeadUrl;
 
     protected String setStoryPath() {
@@ -19,6 +20,7 @@ public class CreateNewLeadAndUpdateStatusTest extends BaseTestRunner {
     @Given("user logged in to the system")
     public void giverUserLoggedInToTheSystem() throws InterruptedException {
         driver.get(baseLoginUrl + loginPartUrl);
+        
         new LoginPage(driver).login(userEmail, userPassword);
     }
 
@@ -35,6 +37,7 @@ public class CreateNewLeadAndUpdateStatusTest extends BaseTestRunner {
     @Then("new lead is created with status $status")
     public void thenNewLeadIsCreatedWithStatus(String status) {
         String actualStatus = new LeadPage(driver).getLeadStatus();
+
         assertThat(actualStatus).isEqualTo(status);
     }
 
@@ -45,7 +48,7 @@ public class CreateNewLeadAndUpdateStatusTest extends BaseTestRunner {
         driver.get(baseUrl + settingsUrl);
 
         new ProfileSettingsPage(driver)
-                .clickOnLeftSideNavigationPanelLink("Leads")
+                .clickOnLeftSideNavigationPanelLink(LEADS)
                 .clickOnLeadStatusesTab()
                 .clickEditButtonByStatus(oldStatus)
                 .changeStatusToNewAndSave(newStatus);
@@ -54,7 +57,9 @@ public class CreateNewLeadAndUpdateStatusTest extends BaseTestRunner {
     @Then("status is updated on lead page to $newStatus")
     public void thenStatusIsUpdatedOnLeadPageToNewStatus(String newStatus) {
         driver.get(lastCreatedLeadUrl);
+
         String actualStatus = new LeadPage(driver).getLeadStatus();
+
         assertThat(actualStatus).isEqualTo(newStatus);
     }
 
@@ -68,8 +73,9 @@ public class CreateNewLeadAndUpdateStatusTest extends BaseTestRunner {
     @Then("status name should be reverted from $oldStatus to $newStatus")
     public void thenStatusNameShouldBeRevertedToPreviousOne(String oldStatus, String newStatus) {
         driver.get(baseUrl + settingsUrl);
+
         new ProfileSettingsPage(driver)
-                .clickOnLeftSideNavigationPanelLink("Leads")
+                .clickOnLeftSideNavigationPanelLink(LEADS)
                 .clickOnLeadStatusesTab()
                 .clickEditButtonByStatus(oldStatus)
                 .changeStatusToNewAndSave(newStatus);
