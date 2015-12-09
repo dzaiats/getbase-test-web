@@ -10,17 +10,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateNewLeadAndUpdateStatusTest extends BaseTestRunner {
 
-    public static final String LEADS = "Leads";
+    private static final String LEADS = "Leads";
     private String lastCreatedLeadUrl;
 
-    protected String setStoryPath() {
-        return "create_new_lead_and_update_status.story";
+    public CreateNewLeadAndUpdateStatusTest(){
+        storyPath = "create_new_lead_and_update_status.story";
     }
 
     @Given("user logged in to the system")
     public void giverUserLoggedInToTheSystem() throws InterruptedException {
         driver.get(baseLoginUrl + loginPartUrl);
-        
+
         new LoginPage(driver).login(userEmail, userPassword);
     }
 

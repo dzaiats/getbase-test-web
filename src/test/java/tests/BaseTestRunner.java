@@ -1,5 +1,6 @@
 package tests;
 
+import driver.DriverHelper;
 import org.jbehave.core.annotations.AfterStory;
 import org.jbehave.core.annotations.BeforeStory;
 import org.jbehave.core.configuration.Configuration;
@@ -34,12 +35,7 @@ public class BaseTestRunner extends JUnitStories {
     protected static WebDriver driver;
     protected String storyPath;
 
-    protected String setStoryPath() {
-        return "";
-    }
-
     public BaseTestRunner() {
-        this.storyPath = setStoryPath();
         configuredEmbedder().embedderControls()
                 .doIgnoreFailureInStories(false)
                 .doIgnoreFailureInView(false)
@@ -53,7 +49,8 @@ public class BaseTestRunner extends JUnitStories {
     }
 
     @AfterStory
-    public void afterStory() {
+    public void afterStory() throws Exception {
+        DriverHelper.takeScreenshot(driver);
         if (driver != null) {
             driver.quit();
         }
