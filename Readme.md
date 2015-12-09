@@ -11,6 +11,6 @@ To start the tests need to execute one  of the next commands:
 Any of those browsers should be pre-installed.
 Safari execution needs to be ran only on Mac. Safari driver extension plugin should be pre-installed.
 
-Before running of the tests need to update next properties in file "src/test/resources/test.properties" to correct:
+Before running of the tests need to update properties in file "src/test/resources/test.properties" to correct user credentials of Base CRM system:
  - user.email=*********
  - user.password=********
